@@ -1,37 +1,36 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect } from "react";
+
+import { useAppDispatch } from "./bll/hooks";
+import { setInitState } from "./bll/reducer";
 
 import s from "App.module.scss";
 import { Content } from "features/Content/Content";
 import { Controls } from "features/Controls/Controls";
-import { DataType, getDataFromLocalStorage } from "utils/ls-funcs";
+import { getDataFromLocalStorage } from "utils/ls-funcs";
 
 const App: FC = () => {
-  const [state, setState] = useState<DataType>({
-    title: "",
-    post: "",
-    isHeaderOn: false,
-    header: "",
-    isFileOn: false,
-    image: null,
-  });
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const data = getDataFromLocalStorage();
     if (data)
-      setState({
-        title: data ? data.title : "Title",
-        post: data ? data.post : "Post",
-        header: data ? data.header : "Header",
-        isHeaderOn: data ? data.isHeaderOn : false,
-        isFileOn: data ? data.isFileOn : false,
-        image: data ? data.image : "",
-      });
+      dispatch(
+        setInitState({
+          title: data ? data.title : "Title",
+          post: data ? data.post : "Post",
+          header: data ? data.header : "Header",
+          isHeaderOn: data ? data.isHeaderOn : false,
+          isImageOn: data ? data.isImageOn : false,
+          image: data ? data.image : "",
+        }),
+      );
   }, []);
 
   return (
     <div className={s.app}>
-      <Controls state={state} setState={setState} />
-      <Content data={state} />
+      <div className={s.container}>
+        <Controls />
+        <Content />
+      </div>
     </div>
   );
 };

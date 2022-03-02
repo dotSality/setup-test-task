@@ -3,7 +3,7 @@ export type DataType = {
   post: string;
   isHeaderOn: boolean;
   header: string;
-  isFileOn: boolean;
+  isImageOn: boolean;
   image: string | null;
 };
 
@@ -19,3 +19,12 @@ export const getDataFromLocalStorage = (): DataType | undefined => {
   }
   return undefined;
 };
+
+// export const getBase64 = (file: File | null) => {
+//   let baseURL = null;
+//   const reader = new FileReader();
+//   if (file) reader.readAsDataURL(file);
+//   reader.onload = () => {
+//     baseURL = reader.result as string;
+//   };
+// };

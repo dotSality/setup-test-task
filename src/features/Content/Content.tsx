@@ -1,17 +1,14 @@
 import React, { memo } from "react";
 
-import { DataType } from "../../utils/ls-funcs";
+import { useAppSelector } from "../../bll/hooks";
+import { getState } from "../../bll/selectors";
 import { Header } from "../Header/Header";
 
 import s from "./Content.module.scss";
 
-type PropsType = {
-  data: DataType;
-};
-
-export const Content = memo(({ data }: PropsType) => {
-  const { header, isHeaderOn, image, title, post, isFileOn } = data;
-  const isImageShow = image && isFileOn;
+export const Content = memo(() => {
+  const { header, isHeaderOn, image, title, post, isImageOn } = useAppSelector(getState);
+  const isImageShow = image && isImageOn;
 
   return (
     <div className={s.content}>
