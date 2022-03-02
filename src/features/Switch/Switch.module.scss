@@ -1,0 +1,41 @@
+.main {
+  position: relative;
+  height: 30px;
+  width: 60px;
+  border: none;
+  background-color: rgba(96,96,109,0.5);
+  border-radius: 100px;
+  margin: 10px;
+  cursor: pointer;
+
+  &.active {
+    background-color: rgba(6,206,0,0.96);
+  }
+
+  .circle {
+    position: absolute;
+    width: 26px;
+    height: 26px;
+    border-radius: 100%;
+    background-color: white;
+    transform: translate(2px, 2px);
+    transition: all 0.3s ease;
+
+    &.active {
+      transform: translate(32px, 2px);
+    }
+  }
+
+  .icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transform: translate(0, 5px);
+    right: 7px;
+    background-size: cover;
+
+    &.active {
+      right: 33px;
+    }
+  }
+}

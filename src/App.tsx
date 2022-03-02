@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { FC, useEffect, useState } from "react";
 
-function App() {
+import s from "App.module.scss";
+import { Content } from "features/Content/Content";
+import { Controls } from "features/Controls/Controls";
+import { DataType, getDataFromLocalStorage } from "utils/ls-funcs";
+
+const App: FC = () => {
+  const [state, setState] = useState<DataType>({
+    title: "",
+    post: "",
+    isHeaderOn: false,
+    header: "",
+    isFileOn: false,
+    image: null,
+  });
+
+  useEffect(() => {
+    const data = getDataFromLocalStorage();
+    if (data)
+      setState({
+        title: data ? data.title : "Title",
+        post: data ? data.post : "Post",
+        header: data ? data.header : "Header",
+        isHeaderOn: data ? data.isHeaderOn : false,
+        isFileOn: data ? data.isFileOn : false,
+        image: data ? data.image : "",
+      });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className={s.app}>
+      <Controls state={state} setState={setState} />
+      <Content data={state} />
     </div>
   );
-}
+};
 
 export default App;
