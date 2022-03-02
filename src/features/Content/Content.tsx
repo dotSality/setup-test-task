@@ -2,7 +2,7 @@ import React, { memo } from "react";
 
 import { useAppSelector } from "../../bll/hooks";
 import { getState } from "../../bll/selectors";
-import { Header } from "../Header/Header";
+import { Header } from "../../components/Header/Header";
 
 import s from "./Content.module.scss";
 
